@@ -1,0 +1,15 @@
+{
+  "name": "matrix-rain",
+  "version": "1.0.0",
+  "description": "Matrix-rain animation with live clock for Even G2 glasses",
+  "main": "index.js",
+  "even": {
+    "appId": "com.whitakerkruse.matrix-rain",
+    "displayName": "Matrix Rain",
+    "description": "Falling matrix characters with live time on your G2 lens",
+    "category": "entertainment",
+    "version": "1.0.0"
+  },
+  "keywords": ["even-g2", "glasses", "matrix", "animation"],
+  "license": "MIT"
+}
