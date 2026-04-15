@@ -1,7 +1,6 @@
 'use strict';
 
 // ─── Display geometry ────────────────────────────────────────────────────────
-// Even G2 lens: ~20 chars wide, 5 rows tall.
 const COLS = 20;
 const ROWS = 5;
 
@@ -53,7 +52,6 @@ function renderFrame() {
   for (let r = 0; r < ROWS; r++) {
     rows.push(columns.map(c => c.cells[r]).join(''));
   }
-  // Stamp time into the centre row so it stays visible through the rain
   const t   = getTime();
   const mid = Math.floor(ROWS / 2);
   const s   = Math.floor((COLS - t.length) / 2);
@@ -62,26 +60,15 @@ function renderFrame() {
 }
 
 // ─── Send frame to glasses ───────────────────────────────────────────────────
-// Different Even Hub SDK versions expose different method names.
-// We try each one in order until one works.
 function pushToGlasses(g, text) {
   if (!g) return;
-  const methods = [
-    'displayText', // Even AI SDK v2+
-    'display',     // Even Hub early SDK
-    'showText',    // alternative naming
-    'setContent',  // content-object style
-    'write',       // raw write
-    'sendText',    // BLE send wrapper
-    'setText'      // setter style
-  ];
+  const methods = ['displayText', 'display', 'showText', 'setContent', 'write', 'sendText', 'setText'];
   for (const m of methods) {
     if (typeof g[m] === 'function') {
       try { g[m](text); } catch (_) {}
       return;
     }
   }
-  // Last resort: glasses might be a function itself
   if (typeof g === 'function') { try { g(text); } catch (_) {} }
 }
 
@@ -90,13 +77,12 @@ module.exports = {
   name: 'matrixrain1.1',
   description: 'Matrix rain animation with live clock on Even G2 glasses',
 
-  // Even Hub may call start(glassesObj) OR start({ glasses: glassesObj })
   start(ctx) {
     const glasses = (ctx && ctx.glasses) ? ctx.glasses : ctx;
     this._timer = setInterval(() => {
       stepColumns();
       pushToGlasses(glasses, renderFrame());
-    }, 150); // ~6-7 fps
+    }, 150);
   },
 
   stop() {
