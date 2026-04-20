@@ -1,0 +1,9 @@
+{
+  "appId": "com.whitakerkruse.matrixrain",
+  "appName": "matrixrain1.1",
+  "displayName": "matrixrain1.1",
+  "version": "1.1.0",
+  "description": "Matrix rain animation with live clock on Even G2 glasses",
+  "main": "index.js",
+  "permissions": ["display"]
+}
